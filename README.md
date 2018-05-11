@@ -1,4 +1,4 @@
-##网络图片的异步加载实现
+#网络图片的异步加载实现
 
 
 
@@ -44,6 +44,10 @@ private List<News> getHttpRequestData() {
 
 
 * 网络请求使用已经封装好的okhttp3，okhttp3需要传入一个URL，返回JSON数据，然后开始JSON数据解析，最后把解析之后需要显示的数据放在Adapter需要用到的List里。
+
+
+
+---
 
 
 
@@ -100,8 +104,9 @@ Glide.with(context).load(news.getPic()).into(holder.imageView);
 
 
 
-demo的运行结果：
+####四、demo的运行结果：
 
 
 
-![S80512-00080544](/Users/dinzhenyan/Downloads/S80512-00080544.jpg)
+![2018-05-12](/Users/dinzhenyan/Documents/Android/AsyncDemo/2018-05-12.jpg)
+
