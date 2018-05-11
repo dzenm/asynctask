@@ -29,16 +29,9 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull NewsAdapter.ViewHolder holder, int position) {
-        String tag = null;
         News news = list.get(position);
         holder.title.setText(news.getTitle());
-        if (tag != null) {
-            Glide.with(context).load(news.getPic()).into(holder.imageView);
-            tag = news.getPic();
-            holder.imageView.setTag(tag);
-        } else {
-            Glide.with(context).load(tag).into(holder.imageView);
-        }
+        Glide.with(context).load(news.getPic()).into(holder.imageView);
     }
 
     @Override
