@@ -1,8 +1,8 @@
-#网络图片的异步加载实现
+# 网络图片的异步加载实现
 
 
 
-####一、网络请求
+#### 一、网络请求
 
 ```java
 private List<News> getHttpRequestData() {
@@ -108,5 +108,5 @@ Glide.with(context).load(news.getPic()).into(holder.imageView);
 
 
 
-![2018-05-12](/Users/dinzhenyan/Documents/Android/AsyncDemo/2018-05-12.jpg)
+![2018-05-12](https://github.com/freedomeden/AsyncTaskDemo/blob/master/2018-05-12.jpg?raw=true)
 
