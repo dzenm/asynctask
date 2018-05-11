@@ -2,7 +2,7 @@
 
 
 
-#### 一、网络请求
+####一、网络请求
 
 ```java
 private List<News> getHttpRequestData() {
@@ -43,11 +43,11 @@ private List<News> getHttpRequestData() {
 
 
 
-* 网络请求使用已经封装好的okhttp3，okhttp3需要传入一个URL，返回JSON数据，然后开始JSON数据解析，最后把解析之后需要显示的数据放在Adapter需要用到的List里。
+- 网络请求使用已经封装好的okhttp3，okhttp3需要传入一个URL，返回JSON数据，然后开始JSON数据解析，最后把解析之后需要显示的数据放在Adapter需要用到的List里。
 
 
 
----
+------
 
 
 
@@ -80,13 +80,13 @@ private List<News> getHttpRequestData() {
 
 
 
-* 实现异步加载需要实现AsyncTask的doInBackground方法。新建一个类继承AsyncTask，AsyncTask的三个参数，最后一个参数是异步加载数据时返回的数据的存储。
-* doInBackground()方法是唯一一个运行在后台中的，并且改方法不能运行在UI线程，否则会阻塞UI线程。因此网络请求及数据解析耗时操作应放在此处
-* 异步加载的结果处理在onPostExcute中执行，解析完数据需要使用的是一个RecyclerView来展示数据，在onPostExcute方法中将解析的结果通过RecyclerView展列出来。RecyclerView展示数据则通过设置adapter，数据和布局。
+- 实现异步加载需要实现AsyncTask的doInBackground方法。新建一个类继承AsyncTask，AsyncTask的三个参数，最后一个参数是异步加载数据时返回的数据的存储。
+- doInBackground()方法是唯一一个运行在后台中的，并且改方法不能运行在UI线程，否则会阻塞UI线程。因此网络请求及数据解析耗时操作应放在此处
+- 异步加载的结果处理在onPostExcute中执行，解析完数据需要使用的是一个RecyclerView来展示数据，在onPostExcute方法中将解析的结果通过RecyclerView展列出来。RecyclerView展示数据则通过设置adapter，数据和布局。
 
 
 
----
+------
 
 
 
@@ -96,15 +96,15 @@ private List<News> getHttpRequestData() {
 Glide.with(context).load(news.getPic()).into(holder.imageView);
 ```
 
-* 因为是通过异步加载的数据，所以RecyclerView设置的数据不会存在耗时的问题，不需要设置tag
+- 因为是通过异步加载的数据，所以RecyclerView设置的数据不会存在耗时的问题，不需要设置tag
 
 
 
----
+------
 
 
 
-####四、demo的运行结果：
+#### 四、demo的运行结果：
 
 
 
