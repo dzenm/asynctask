@@ -9,14 +9,13 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
-
 import java.util.List;
 
 public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
 
     private List<News> list;
-    private Context context;
+    private ImageLoader imageLoader;
+    public static String[] urls;
 
     @NonNull
     @Override
@@ -31,7 +30,17 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
     public void onBindViewHolder(@NonNull NewsAdapter.ViewHolder holder, int position) {
         News news = list.get(position);
         holder.title.setText(news.getTitle());
-        Glide.with(context).load(news.getPic()).into(holder.imageView);
+
+        // 实现图片加载的三种方法，
+        // 第一种使用第三方库Glide加载，使用Glide不能通过setTag(tag);需要使用setTag(id, tag);
+//        Glide.with(context).load(news.getPic()).into(holder.imageView);
+
+        String tag = news.getPic();
+        holder.imageView.setTag(tag);
+        // 第二种使用多线程加载
+//        imageLoader.showImageByThread(holder.imageView, tag);
+        // 第三种使用异步加载图片
+        imageLoader.showImageViewByAsyncTask(holder.imageView, tag);
     }
 
     @Override
@@ -50,8 +59,13 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
         }
     }
 
-    public NewsAdapter(Context context, List<News> list) {
-        this.context = context;
+    public NewsAdapter(List<News> list, RecyclerView recyclerView) {
+
         this.list = list;
+        imageLoader = new ImageLoader(recyclerView);
+        urls = new String[list.size()];
+        for (int i = 0; i < list.size(); i++) {
+            urls[i] = list.get(i).getPic();
+        }
     }
 }

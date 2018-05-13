@@ -25,7 +25,10 @@ import okhttp3.Response;
 public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding bind;
-    private static final String URL = "http://www.imooc.com/api/teacher?type=4&num=30";
+    public static final String URL = "http://www.imooc.com/api/teacher?type=4&num=30";
+    private int startItem, endItem;
+    private ImageLoader imageLoader;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +41,28 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
         // 异步加载运行在UI线程里
         new NewsAsync().execute();
+        imageLoader = new ImageLoader(bind.recyclerView);
+        bind.recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                // 获取RecyclerView布局管理
+                RecyclerView.LayoutManager manager = recyclerView.getLayoutManager();
+                // 判断是否是LinearLayoutManager
+                if (manager instanceof LinearLayoutManager) {
+                    LinearLayoutManager linearLayout = (LinearLayoutManager) manager;
+                    startItem = linearLayout.findFirstVisibleItemPosition();
+                    endItem = linearLayout.findLastVisibleItemPosition();
+                    if (newState == RecyclerView.SCROLL_STATE_IDLE) {
+                        // 滑动停止时加载可见项
+                        imageLoader.loadImages(startItem, endItem);
+                    } else {
+                        // 停止加载
+                        imageLoader.canaelAllTask();
+                    }
+                }
+            }
+        });
     }
 
     private List<News> getHttpRequestData() {
@@ -89,9 +114,8 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(List<News> list) {
             super.onPostExecute(list);
-            NewsAdapter newsAdapter = new NewsAdapter(MainActivity.this, list);
-            final LinearLayoutManager manager = new LinearLayoutManager(MainActivity.this);
-            bind.recyclerView.setLayoutManager(manager);
+            NewsAdapter newsAdapter = new NewsAdapter(list, bind.recyclerView);
+            bind.recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
             bind.recyclerView.setAdapter(newsAdapter);
         }
     }
