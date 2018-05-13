@@ -317,5 +317,6 @@ bind.recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
 
 ![asynctaskdemo.gif](https://github.com/freedomeden/AsyncTaskDemo/blob/master/picture/asynctaskdemo.gif?raw=true)
 
-![2018-05-12](https://github.com/freedomeden/AsyncTaskDemo/blob/master/2018-05-12.jpg?raw=true)
 
+
+![2018-05-12.jpg](https://github.com/freedomeden/AsyncTaskDemo/blob/master/picture/2018-05-12.jpg?raw=true)
