@@ -2,10 +2,6 @@
 
 
 
-##**网络图片的异步加载图片的实现**
-
-
-
 > * 通过异步加载，避免阻塞UI线程
 > * 通过LruCache，将已下载图片放到内存中
 > * 通过判断RecyclerView滑动状态，决定何时加载图片
@@ -318,6 +314,8 @@ bind.recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
 #### 四、demo的运行结果：
 
 
+
+![asynctaskdemo.gif](https://github.com/freedomeden/AsyncTaskDemo/blob/master/picture/asynctaskdemo.gif?raw=true)
 
 ![2018-05-12](https://github.com/freedomeden/AsyncTaskDemo/blob/master/2018-05-12.jpg?raw=true)
 
