@@ -9,7 +9,7 @@
 
 <br /> 
 
-###  一、网络请求
+##  一、网络请求
 
 ```java
 private List<News> getHttpRequestData() {
@@ -48,7 +48,7 @@ private List<News> getHttpRequestData() {
 
 <br /> 
 
-#### 二、异步加载
+## 二、异步加载
 
 <br />
 
@@ -78,7 +78,7 @@ private List<News> getHttpRequestData() {
 
 <br /><br />
 
-#### 三、图片的缓存机制
+## 三、图片的缓存机制
 
 ```
 Glide.with(context).load(news.getPic()).into(holder.imageView);
@@ -88,7 +88,7 @@ Glide.with(context).load(news.getPic()).into(holder.imageView);
 
 <br /><br />
 
-##### 2018/5/13更新图片的缓存机制
+## 2018/5/13更新图片的缓存机制
 
 <br />
 
@@ -276,7 +276,7 @@ bind.recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
 
 <br /><br />
 
-#### 四、demo的运行结果：
+## 四、demo的运行结果：
 
 ![asynctaskdemo.gif](https://github.com/freedomeden/AsyncTaskDemo/blob/master/picture/asynctaskdemo.gif?raw=true)
 
