@@ -276,7 +276,7 @@ bind.recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
 
 <br /><br />
 
-## 四、demo的运行结果：
+## 四、运行结果：
 
 ![asynctaskdemo.gif](https://github.com/freedomeden/AsyncTaskDemo/blob/master/picture/asynctaskdemo.gif?raw=true)
 
