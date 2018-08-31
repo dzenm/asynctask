@@ -1,33 +1,26 @@
+<br /> 
+
 # 网络图片的异步加载实现
-
-
 
 > * 通过异步加载，避免阻塞UI线程
 > * 通过LruCache，将已下载图片放到内存中
 > * 通过判断RecyclerView滑动状态，决定何时加载图片
 > * 不仅仅是RecyclerView，任何控件都可以使用异步加载
 
+<br /> 
 
-
-
-
-----
-
-
-
-####  一、网络请求
+###  一、网络请求
 
 ```java
 private List<News> getHttpRequestData() {
         List<News> list = new ArrayList<>();
         try {
-            // 通过OKHttp发起网络请求
+            // OKHttp发起网络请求
             OkHttpClient client = new OkHttpClient();
             Request request = new Request.Builder().url(URL).build();
             Response response = client.newCall(request).execute();
             // 请求返回的数据
             String data = response.body().string();
-            // 开始JSON解析
             JSONObject jsonObject = new JSONObject(data);
             // 判断JSON解析获取的状态值
             String status = jsonObject.getString("status");
@@ -39,7 +32,6 @@ private List<News> getHttpRequestData() {
                     int id = dataJSONObject.getInt("id");
                     String pic = dataJSONObject.getString("picBig");
                     String name = dataJSONObject.getString("name");
-                    // 解析的结果放在adapter的list中
                     list.add(new News(id, pic, name));
                 }
             } else {
@@ -54,24 +46,13 @@ private List<News> getHttpRequestData() {
 }
 ```
 
-
-
-- 网络请求使用已经封装好的okhttp3，okhttp3需要传入一个URL，返回JSON数据，然后开始JSON数据解析，最后把解析之后需要显示的数据放在Adapter需要用到的List里。
-
-
-
-------
-
-
+<br /> 
 
 #### 二、异步加载
 
-
+<br />
 
 ```
-	/**
-     * 实现网络的异步访问
-     */
     class NewsAsync extends AsyncTask<String, Void, List<News>> {
         // 运行在后台，不能运行在UI线程，会阻塞UI线程
         @Override
@@ -79,7 +60,7 @@ private List<News> getHttpRequestData() {
             return getHttpRequestData();
         }
 
-        // 运行在UI线程中，主要为设置adapter和设置布局方向
+        // 运行在UI线程中
         @Override
         protected void onPostExecute(List<News> list) {
             super.onPostExecute(list);
@@ -91,17 +72,11 @@ private List<News> getHttpRequestData() {
     }
 ```
 
-
-
 - 实现异步加载需要实现AsyncTask的doInBackground方法。新建一个类继承AsyncTask，AsyncTask的三个参数，最后一个参数是异步加载数据时返回的数据的存储。
 - doInBackground()方法是唯一一个运行在后台中的，并且改方法不能运行在UI线程，否则会阻塞UI线程。因此网络请求及数据解析耗时操作应放在此处
 - 异步加载的结果处理在onPostExcute中执行，解析完数据需要使用的是一个RecyclerView来展示数据，在onPostExcute方法中将解析的结果通过RecyclerView展列出来。RecyclerView展示数据则通过设置adapter，数据和布局。
 
-
-
-------
-
-
+<br /><br />
 
 #### 三、图片的缓存机制
 
@@ -111,15 +86,15 @@ Glide.with(context).load(news.getPic()).into(holder.imageView);
 
 - 因为是通过异步加载的数据，所以RecyclerView设置的数据不会存在耗时的问题，不需要设置tag
 
-
+<br /><br />
 
 ##### 2018/5/13更新图片的缓存机制
 
-
+<br />
 
 > 通过RecyclerView的滑动监听事件，监听滑动到哪然后去加载当前可见项的图片。
 
-
+<br />
 
 * RecyclerView的滑动监听事件
 
@@ -148,7 +123,7 @@ bind.recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
     }
 ```
 
-
+<br /><br />
 
 * NewsAdapter绑定数据时通过调用异步加载任务去下载网络图片
 
@@ -161,7 +136,7 @@ bind.recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
         imageLoader.showImageViewByAsyncTask(holder.imageView, tag);
 ```
 
-
+<br />
 
 * LoadImages需要添加缓存机制的方法
 
@@ -196,11 +171,9 @@ bind.recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
     }
 ```
 
-
+<br />
 
 * 使用异步加载下载图片
-
-
 
 ```
     // 第三部分，使用AysncTask异步加载网络图片
@@ -242,11 +215,9 @@ bind.recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
 
 ```
 
-
+<br />
 
 * 下载任务通过okhttp3连接
-
-  
 
 ```
 // 第四部分，通过从网络加载图片
@@ -268,11 +239,9 @@ bind.recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
 
 ```
 
-
+<br />
 
 * 加载可见部分的图片，并将该任务添加到List里管理
-
-
 
 ```
 // 第五部分，加载可见部分的图片
@@ -305,18 +274,12 @@ bind.recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
     }
 ```
 
-
-
-------
-
-
+<br /><br />
 
 #### 四、demo的运行结果：
 
-
-
 ![asynctaskdemo.gif](https://github.com/freedomeden/AsyncTaskDemo/blob/master/picture/asynctaskdemo.gif?raw=true)
 
-
-
 ![2018-05-12.jpg](https://github.com/freedomeden/AsyncTaskDemo/blob/master/picture/2018-05-12.jpg?raw=true)
+
+<br /><br />
